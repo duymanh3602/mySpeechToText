@@ -1,0 +1,6 @@
+.toggleButton {
+    -fx-background-image: url("com/example/img/switch-off.png");
+}
+.toggleButton:hover {
+    -fx-background-image: url("com/example/img/switch-on.png");
+}
