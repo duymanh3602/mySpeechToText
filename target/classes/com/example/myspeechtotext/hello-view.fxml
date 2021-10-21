@@ -12,19 +12,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.myspeechtotext.HelloController">
    <children>
-      <TextArea fx:id="textArea" layoutX="40.0" layoutY="22.0" prefHeight="300.0" prefWidth="700.0">
+      <TextArea fx:id="textArea" layoutX="34.0" layoutY="28.0" prefHeight="300.0" prefWidth="700.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></TextArea>
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="344.0" layoutY="338.0" onMouseClicked="#getAudio" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/voice.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="microphone" fitHeight="80.0" fitWidth="80.0" layoutX="344.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="685.0" layoutY="276.0" onMouseClicked="#copyToClipboard" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/copy.png" />
          </image>
       </ImageView>
+      <ToggleButton fx:id="toggle" layoutX="344.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#getVoice" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="ToggleButton" />
    </children>
 </AnchorPane>

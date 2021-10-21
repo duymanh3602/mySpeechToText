@@ -11,20 +11,40 @@ import javafx.scene.input.MouseEvent;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HelloController {
     @FXML
     private TextArea textArea;
+    @FXML
+    private ToggleButton toggle;
+    @FXML
+    private ImageView microphone;
 
-    public void initialize() {
+    public void initialize() throws FileNotFoundException {
         textArea.setWrapText(true);
         textArea.setEditable(false);
+        InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_off.png");
+        Image image = new Image(stream,80,80,false,true);
+        microphone.setImage(image);
     }
 
+    public void getVoice(MouseEvent event) throws FileNotFoundException {
+        if (toggle.isSelected()) {
+            textArea.setText("Clicked!");
+            InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_on.png");
+            Image image = new Image(stream,80,80,false,true);
+            microphone.setImage(image);
+
+        } else {
+            textArea.setText("UnClicked!");
+            InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_off.png");
+            Image image = new Image(stream,80,80,false,true);
+            microphone.setImage(image);
+        }
+    }
     public void copyToClipboard(MouseEvent event) {
         String text = textArea.getText();
         StringSelection stringSelection = new StringSelection(text);
