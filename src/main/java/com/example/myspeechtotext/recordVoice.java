@@ -9,7 +9,9 @@ public class recordVoice {
     File wavFile = new File("RecordAudio.wav");
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
     TargetDataLine line;
+    static AudioFormat format = new AudioFormat(16000, 16, 2, true, true);
 
+    /*
     AudioFormat getAudioFormat() {
         float sampleRate = 16000;
         int sampleSizeInBits = 8;
@@ -20,10 +22,10 @@ public class recordVoice {
                 channels, signed, bigEndian);
         return format;
     }
+     */
 
     void start() {
         try {
-            AudioFormat format = getAudioFormat();
             DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
             if (!AudioSystem.isLineSupported(info)) {
@@ -33,8 +35,6 @@ public class recordVoice {
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
             line.start();
-
-            //System.out.println("Start capturing...");
 
             AudioInputStream ais = new AudioInputStream(line);
 
@@ -54,20 +54,22 @@ public class recordVoice {
         line.close();
         System.out.println("Finished");
     }
+    static final recordVoice recorder = new recordVoice();
+    public static Thread stopper = new Thread(new Runnable() {
+        public void run() {
+            try {
+                Thread.sleep(RECORD_TIME);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            recorder.finish();
+        }
+    });
 
     public static void recordMyVoice() {
-        final recordVoice recorder = new recordVoice();
 
-        Thread stopper = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(RECORD_TIME);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                    recorder.finish();
-            }
-        });
+
+
 
         stopper.start();
 
