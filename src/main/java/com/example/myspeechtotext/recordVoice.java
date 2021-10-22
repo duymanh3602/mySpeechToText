@@ -11,23 +11,9 @@ public class recordVoice {
     TargetDataLine line;
     static AudioFormat format = new AudioFormat(16000, 16, 2, true, true);
 
-    /*
-    AudioFormat getAudioFormat() {
-        float sampleRate = 16000;
-        int sampleSizeInBits = 8;
-        int channels = 2;
-        boolean signed = true;
-        boolean bigEndian = true;
-        AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
-                channels, signed, bigEndian);
-        return format;
-    }
-     */
-
     void start() {
         try {
             DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-
             if (!AudioSystem.isLineSupported(info)) {
                 System.out.println("Line not supported");
                 System.exit(0);
@@ -35,13 +21,9 @@ public class recordVoice {
             line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
             line.start();
-
             AudioInputStream ais = new AudioInputStream(line);
-
             System.out.println("Start recording...");
-
             AudioSystem.write(ais, fileType, wavFile);
-
         } catch (LineUnavailableException ex) {
             ex.printStackTrace();
         } catch (IOException ioe) {

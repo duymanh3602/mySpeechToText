@@ -14,7 +14,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HelloController {
+public class Controller {
     @FXML
     private TextArea textArea;
     @FXML
