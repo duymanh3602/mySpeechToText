@@ -11,8 +11,6 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class Controller {
     @FXML

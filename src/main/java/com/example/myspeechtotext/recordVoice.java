@@ -49,10 +49,6 @@ public class recordVoice {
     });
 
     public static void recordMyVoice() {
-
-
-
-
         stopper.start();
 
         // start recording
