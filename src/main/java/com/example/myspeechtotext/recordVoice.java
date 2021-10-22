@@ -36,19 +36,20 @@ public class recordVoice {
         line.close();
         System.out.println("Finished");
     }
-    static final recordVoice recorder = new recordVoice();
-    public static Thread stopper = new Thread(new Runnable() {
-        public void run() {
-            try {
-                Thread.sleep(RECORD_TIME);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-            recorder.finish();
-        }
-    });
 
-    public static void recordMyVoice() {
+
+    public static void recordMyVoice(int n) {
+        final recordVoice recorder = new recordVoice();
+        Thread stopper = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(n);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                recorder.finish();
+            }
+        });
         stopper.start();
 
         // start recording

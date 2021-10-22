@@ -34,7 +34,9 @@ public class Controller {
             InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_on.png");
             Image image = new Image(stream,80,80,false,true);
             microphone.setImage(image);
-
+            recordVoice.recordMyVoice(10000);
+            String temp = speechToText.voiceToText();
+            textArea.setText(speechToText.makeTrueForm(temp));
         } else {
             textArea.setText("UnClicked!");
             InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_off.png");
@@ -49,7 +51,7 @@ public class Controller {
         clipboard.setContents(stringSelection,null);
     }
     public void getAudio(MouseEvent event) {
-        recordVoice.recordMyVoice();
+        recordVoice.recordMyVoice(10000);
         String temp = speechToText.voiceToText();
         textArea.setText(speechToText.makeTrueForm(temp));
     }
