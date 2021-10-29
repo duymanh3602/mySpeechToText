@@ -5,7 +5,7 @@ import java.io.*;
 
 public class recordVoice {
 
-    static final long RECORD_TIME = 3000;  // 1 minute
+    static final long RECORD_TIME = 3000; 
     File wavFile = new File("RecordAudio.wav");
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
     TargetDataLine line;
