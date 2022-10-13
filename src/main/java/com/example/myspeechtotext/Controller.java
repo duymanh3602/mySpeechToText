@@ -6,6 +6,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -13,47 +15,57 @@ import java.awt.datatransfer.StringSelection;
 import java.io.*;
 
 public class Controller {
+
+    FileChooser fileChooser = new FileChooser();
+
+    File file = null;
     @FXML
-    private TextArea textArea;
+    private TextArea res;
     @FXML
     private ToggleButton toggle;
     @FXML
     private ImageView microphone;
 
     public void initialize() throws FileNotFoundException {
-        textArea.setWrapText(true);
-        textArea.setEditable(false);
-        InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_off.png");
-        Image image = new Image(stream,80,80,false,true);
-        microphone.setImage(image);
+        res.setWrapText(true);
+        res.setEditable(false);
+
     }
 
-    public void getVoice(MouseEvent event) throws FileNotFoundException {
-        if (toggle.isSelected()) {
-            textArea.setText("Clicked!");
-            InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_on.png");
-            Image image = new Image(stream,80,80,false,true);
-            microphone.setImage(image);
-            recordVoice.recordMyVoice(10000);
-            String temp = speechToText.voiceToText();
-            textArea.setText(speechToText.makeTrueForm(temp));
-        } else {
-            textArea.setText("UnClicked!");
-            InputStream stream = new FileInputStream("src\\main\\resources\\com\\example\\img\\voice_off.png");
-            Image image = new Image(stream,80,80,false,true);
-            microphone.setImage(image);
-        }
-    }
+//    public void getVoice(MouseEvent event) throws FileNotFoundException {
+//        if (toggle.isSelected()) {
+//            recordVoice.recordMyVoice(10000);
+//            String temp = speechToText.voiceToText();
+//        } else {
+//        }
+//    }
     public void copyToClipboard(MouseEvent event) {
-        String text = textArea.getText();
+        String text = res.getText();
         StringSelection stringSelection = new StringSelection(text);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection,null);
     }
-    public void getAudio(MouseEvent event) {
-        recordVoice.recordMyVoice(10000);
-        String temp = speechToText.voiceToText();
-        textArea.setText(speechToText.makeTrueForm(temp));
+//    public void getAudio(MouseEvent event) {
+//        recordVoice.recordMyVoice(10000);
+//        String temp = speechToText.voiceToText();
+//        res.setText(speechToText.makeTrueForm(temp));
+//    }
+
+    public void getFile() throws InterruptedException {
+        file = fileChooser.showOpenDialog(new Stage());
+    }
+
+    public void getRes() {
+        System.out.println(file.getAbsoluteFile());
+        if (file.isFile()) {
+            String ans = speechToText.voiceToText(file);
+
+            System.out.println("Getting...!");
+            res.setText(speechToText.makeTrueForm(ans));
+        } else {
+            System.out.println("False to get File");
+        }
+
     }
 
 }
